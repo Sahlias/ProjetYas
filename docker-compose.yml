@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx:1.22-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/code
+      - ./nginx.conf:/etc/nginx/nginx.conf
+
+  php:
+    build: .
+    volumes:
+      - ./:/code
+
+  mysql:
+    image: mysql:8.2
+    environment:
+       MYSQL_ROOT_PASSWORD: root
+       MYSQL_DATABASE: YAS
+       MYSQL_USER: USER
+       MYSQL_PASSWORD: Asaad
+    volumes:
+      - data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root  
+    ports:
+      - "8081:80"  
+
+
+volumes:
+  data:
+
+      
