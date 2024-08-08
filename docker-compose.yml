@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 services:
   nginx:
@@ -13,26 +13,26 @@ services:
     build: .
     volumes:
       - ./:/code
-
+      - ./php.ini:/usr/local/etc/php/conf.d/custom-php.ini
+    environment:
+      DATABASE_HOST: 172.24.0.2
   mysql:
     image: mysql:8.2
     environment:
-       MYSQL_ROOT_PASSWORD: root
-       MYSQL_DATABASE: YAS
-       MYSQL_USER: USER
-       MYSQL_PASSWORD: Asaad
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: YAS
+      MYSQL_USER: USER
+      MYSQL_PASSWORD: Asaad
     volumes:
       - data:/var/lib/mysql
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
       PMA_HOST: mysql
-      MYSQL_ROOT_PASSWORD: root  
+      MYSQL_ROOT_PASSWORD: root
     ports:
-      - "8081:80"  
-
+      - "8081:80"
 
 volumes:
   data:
-
-      
